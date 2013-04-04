@@ -3,26 +3,26 @@ IE2BullzipPDF
 
 Windows Powershell script that Prints a webpage to a PDF.
 
-##################################################################################
-#
-#  Script name: IE2BullzipPDF.ps1 
-#  Author:      Trevor Hoffman
-#  Homepage:    github.com/trehoffman/IE2BullzipPDF
-#
-#  Based off of a script from Steve Illichevsky's work on GitHub (stillru/PersonalPakage/Scripts/Powershell/Bullzip-print.ps1)
-##################################################################################
+Author:       Trevor Hoffman
+
+Contributors: Based off of a script from Steve Illichevsky's work on GitHub (stillru/PersonalPakage/Scripts/Powershell/Bullzip-print.ps1)
 
 DESCRIPTION:
 
 NAME: IE2BullzipPDF.ps1 
+
 Print a webpage as a PDF.
 
 PARAMETERS: 
 
 -In          Input file
+
 -Out         Output PDF file
+
 -PageDelay   Integer denoting how many seconds to wait for IE to load webpage
+
 -PrintDelay  Integer denoting how many seconds to wait for IE to send the page to the PDF printer
+
 -help        Show this help file
 
 SYNTAX:
