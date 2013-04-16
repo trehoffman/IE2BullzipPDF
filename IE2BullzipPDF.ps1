@@ -7,6 +7,8 @@
 #  Based off of a script from Steve Illichevsky's work on GitHub (stillru/PersonalPakage/Scripts/Powershell/Bullzip-print.ps1)
 ##################################################################################
 
+param([string]$In, [string]$Out, [int]$PageDelay, [int]$PrintDelay)
+
 function GetHelp() {
 
 $HelpText = @"
@@ -50,20 +52,20 @@ function PrintPDF ([string]$In, [string]$Out, [int]$PageDelay, [int]$PrintDelay)
     $webpage = $In
     
     # set page delay
-    if (not $PageDelay) {
-        $PageDelay = 0
+    if (-NOT $PageDelay) {
+        $PageDelay = 1
     }
     
     # set print delay
-    if (not $PrintDelay) {
-        $PrintDelay = 0
+    if (-NOT $PrintDelay) {
+        $PrintDelay = 1
     }
 
     # Setup Bullzip printer
     $settings = new-object Bullzip.PdfWriter.PdfSettings;
     $settings.PrinterName = „Bullzip PDF Printer“;
     $settings.SetValue(„Output“, $Out);
-    $settings.SetValue(„ShowPDF“, „no“);
+    $settings.SetValue(„ShowPDF“, „yes“);
     $settings.SetValue(„ShowSettings“, „never“);
     $settings.SetValue(„ShowSaveAS“, „never“);
     $settings.SetValue(„ShowProgress“, „no“);
@@ -72,16 +74,16 @@ function PrintPDF ([string]$In, [string]$Out, [int]$PageDelay, [int]$PrintDelay)
     $settings.WriteSettings([Bullzip.PdfWriter.PdfSettingsFileType]::RuneOnce);
     
     # Get current default printer
-    $defaultprinter = Get-WmiObject -Query "SELECT Name FROM Win32_Printer WHERE Default = TRUE"
+    $defaultprinter = Get-WmiObject -Query "SELECT * FROM Win32_Printer WHERE Default = TRUE"
     
     # Set Bullzip PDF Printer as the default printer
-    $printer = Get-WmiObject -Query "SELECT Name FROM Win32_Printer WHERE Name='Bullzip PDF Printer'"
+    $printer = Get-WmiObject -Query "SELECT * FROM Win32_Printer WHERE Name='Bullzip PDF Printer'"
     $printer.SetDefaultPrinter()
 
     # Load webpage and print it to PDF
     $ie=new-object -com internetexplorer.application
     $ie.navigate($webpage)        
-    start-sleep -seconds $PageDelay     
+    start-sleep -seconds $PageDelay    
     $ie.execWB(6,2) 
     start-sleep -seconds $PrintDelay    
     $ie.quit()
@@ -91,9 +93,9 @@ function PrintPDF ([string]$In, [string]$Out, [int]$PageDelay, [int]$PrintDelay)
 }
 
 if ($help) {
-  GetHelp
-} elseif ($In -AND $Out) {
-	PrintPDF -In $In -Out $Out
-} else {
 	GetHelp
+} elseif ($In -AND $Out) {
+	PrintPDF -In $In -Out $Out -PageDelay $PageDelay -PrintDelay $PrintDelay
+} else {
+    GetHelp  
 }
