@@ -17,9 +17,9 @@ PARAMETERS:
 
 -In          Input file
 
--Out         Output PDF file
+-Out         Output PDF file (Must be an ABSOLUTE path...RELATIVE paths do not work)
 
--PageDelay   Integer denoting how many seconds to wait for IE to load webpage
+-PageDelay   Integer denoting how many seconds to wait for IE to load webpage (use larger page delays for websites that use Javascript more heavily...even then, the page might not print exactly as seen in the browser)
 
 -PrintDelay  Integer denoting how many seconds to wait for IE to send the page to the PDF printer
 
